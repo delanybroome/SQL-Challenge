@@ -1,0 +1,62 @@
+---Drop Tables
+
+DROP TABLE IF EXISTS Salaries;
+DROP TABLE IF EXISTS Titles;
+DROP TABLE IF EXISTS Department_Manager; 
+DROP TABLE IF EXISTS Department_Employees; 
+DROP TABLE IF EXISTS Departments; 
+DROP TABLE IF EXISTS Employees;
+
+--- Department Table
+CREATE TABLE Departments (
+dept_no VARCHAR Primary KEy, 
+dept_name VARCHAR NOT NULL
+);
+
+--- Employee Table 
+CREATE TABLE Employees (
+emp_no INTEGER PRIMARY KEY, 
+birth_date DATE NOT NULL, 
+first_name VARCHAR NOT NULL, 
+last_name VARCHAR NOT NULL,
+gender VARCHAR NOT NULL,
+hire_date DATE NOT NULL
+);
+
+---DEPARTMENT EMPLOYEES 
+CREATE TABLE Department_Employees (
+emp_no INTEGER NOT NULL, 
+FOREIGN KEY (emp_no) REFERENCES Employees (emp_no),
+dept_no VARCHAR NOT NULL,
+FOREIGN KEY (dept_no) REFERENCES Departments(dept_no),
+from_date DATE NOT NULL, 
+to_date DATE NOT NULL
+);
+
+--- Department Managers 
+CREATE TABLE Department_Manager ( 
+dept_no VARCHAR NOT NULL, 
+FOREIGN KEY (dept_no) REFERENCES Departments(dept_no),
+emp_no INTEGER NOT NULL, 
+FOREIGN KEY (emp_no) REFERENCES Employees (emp_no),
+from_date DATE NOT NULL, 
+to_date DATE NOT NULL
+); 
+
+---- Employee Salaries
+CREATE TABLE Salaries ( 
+emp_no INTEGER NOT NULL, 
+FOREIGN KEY (emp_no) REFERENCES Employees(emp_no), 
+salary FLOAT NOT NULL, 
+from_date DATE NOT NULL, 
+to_date DATE NOT NULL
+);
+
+-- Employee Titles 
+CREATE TABLE Titles (
+emp_no INTEGER NOT NULL,
+FOREIGN KEY (emp_no) REFERENCES Employees(emp_no), 
+title VARCHAR NOT NULL, 
+from_date DATE NOT NULL, 
+to_date DATE NOT NULL
+);
